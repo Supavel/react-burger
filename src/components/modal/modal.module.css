@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+.modal {
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    position: absolute;
+    width: 80vh;
+    height: 60vh;
+    top: calc(50% - 30vh);
+    left: calc(50% - 40vh);
+    border-radius: 5%;
+    cursor: default;
+    background-color: #1C1C21;
+}
+
+.modal-header {
+    display:flex;
+    justify-content: center;
+}
+
+.modal-container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close-icon {
+    position: absolute;
+    left: 90%;
+    top: 0;
+    cursor: pointer;
+}
