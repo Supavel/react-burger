@@ -4,6 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient-item.module.css";
 import PropTypes from "prop-types";
+import ingredientPropTypes from "../../../utils/types";
 
 function BurgerIngredientItem({ ingredient, setselectedIngredient }: any) {
   const handleImgClick = () => {
@@ -20,21 +21,6 @@ function BurgerIngredientItem({ ingredient, setselectedIngredient }: any) {
     </>
   );
 }
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number
-});
 
 BurgerIngredientItem.propTypes = {
   ingredient: ingredientPropTypes.isRequired,

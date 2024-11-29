@@ -1,27 +1,21 @@
-import React from "react";
 import styles from "./modal-overlay.module.css";
+import PropTypes from "prop-types";
 
 const ModalOverlay = ({ children, onClose }: any) => {
-  React.useEffect(() => {
-    document.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-  const handleKeyDown = (event: any) => {
-    if (event.key === "Escape") {
-      onClose();
-    }
-  };
+
   return (
     <div
       className={styles["modal-overlay"]}
       onClick={onClose}
-      onKeyDown={handleKeyDown}
     >
       {children}
     </div>
   );
+};
+
+ModalOverlay.propTypes = {
+  children: PropTypes.element.isRequired,
+  onClose: PropTypes.func,
 };
 
 export default ModalOverlay;

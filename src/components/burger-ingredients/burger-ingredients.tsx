@@ -1,15 +1,16 @@
-import React from "react";
+import {useState} from "react";
 import BurgerIngredientsGroup from "./burger-ingredients-group/burger-ingredients-group";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import IngredientsDetails from "./ingredient-details/ingredient-details";
+import ingredientPropTypes from "../../utils/types";
 
 const BurgerIngredients = ({ ingredients}: any) => {
-  const [current, setCurrent] = React.useState("one");
-  const [selectedIngredient, setselectedIngredient] = React.useState(null);
-  const [modalVisible, setModalVisible] = React.useState(false);
+  const [current, setCurrent] = useState("one");
+  const [selectedIngredient, setselectedIngredient] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleIngredientClick = (ingredient:any) => {
     setselectedIngredient(ingredient);
@@ -63,23 +64,8 @@ const BurgerIngredients = ({ ingredients}: any) => {
   );
 };
 
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number
-});
-
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerIngredients;

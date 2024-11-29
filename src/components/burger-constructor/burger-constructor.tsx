@@ -1,4 +1,4 @@
-import React from "react";
+import {useState} from "react";
 import styles from "./burger-constructor.module.css";
 import PropTypes from "prop-types";
 import {
@@ -9,10 +9,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
+import ingredientPropTypes from "../../utils/types";
 
 const BurgerConstructor = ({ ingredients }: any) => {
   const total = ingredients.reduce((acc: number, p: any) => acc + p.price, 0);
-  const [orderModalVisible, setOrderModalVisible] = React.useState(false);
+  const [orderModalVisible, setOrderModalVisible] = useState(false);
   const handleOrderClick = () => {
     setOrderModalVisible(true);
   };
@@ -38,14 +39,13 @@ const BurgerConstructor = ({ ingredients }: any) => {
           {ingredients.map((ingredient: any) => {
             return (
               ingredient.type !== "bun" && (
-                <li className={`${styles.ingredient} mb-4`}>
+                <li key={ingredient._id} className={`${styles.ingredient} mb-4`}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     isLocked={false}
                     text={ingredient.name}
                     price={ingredient.price}
                     thumbnail={ingredient.image}
-                    key={ingredient._id}
                   />
                 </li>
               )
@@ -84,23 +84,8 @@ const BurgerConstructor = ({ ingredients }: any) => {
   );
 };
 
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number,
-});
-
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerConstructor;

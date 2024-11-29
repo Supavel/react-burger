@@ -1,7 +1,7 @@
-import React from "react";
 import BurgerIngredientItem from "../burger-ingredient-item/burger-ingredient-item";
 import PropTypes from "prop-types";
 import styles from "./burger-ingredients-group.module.css";
+import ingredientPropTypes from "../../../utils/types";
 
 const BurgerIngredientsGroup = ({
   ingredients,
@@ -26,10 +26,9 @@ const BurgerIngredientsGroup = ({
         {ingredients.map((ingredient: any) => {
           if (ingredient.type === ingredientType) {
             return (
-              <li className={styles.ingredient}>
+              <li className={styles.ingredient} key={ingredient._id}>
                 <BurgerIngredientItem
                   ingredient={ingredient}
-                  key={ingredient._id}
                   setselectedIngredient={setselectedIngredient}
                 />
               </li>
@@ -41,23 +40,8 @@ const BurgerIngredientsGroup = ({
   );
 };
 
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  proteins: PropTypes.number,
-  fat: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  calories: PropTypes.number,
-  price: PropTypes.number,
-  image: PropTypes.string,
-  image_mobile: PropTypes.string,
-  image_large: PropTypes.string,
-  __v: PropTypes.number
-});
-
 BurgerIngredientsGroup.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes),
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   ingredientType: PropTypes.string.isRequired,
   setselectedIngredient: PropTypes.func,
 };
