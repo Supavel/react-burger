@@ -28,7 +28,7 @@ const BurgerConstructor = ({ ingredients }: any) => {
       <div className={styles.bun}>
         <ConstructorElement
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (верх)`}
           price={bun.price}
           thumbnail={bun.image}
           type="top"
@@ -57,7 +57,7 @@ const BurgerConstructor = ({ ingredients }: any) => {
       <div className={styles.bun}>
         <ConstructorElement
           isLocked={true}
-          text={bun.name}
+          text={`${bun.name} (низ)`}
           price={bun.price}
           thumbnail={bun.image}
           type="bottom"
