@@ -1,0 +1,25 @@
+.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vh;
+  margin: auto;
+}
+
+.constructor {
+    display: flex;
+}
+
+.order-tape {
+    display: flex;
+    margin-right: auto;
+}
+
+.logo {
+    display: flex;
+}
+
+.sign-in {
+    display: flex;
+    margin-left: auto;
+} 

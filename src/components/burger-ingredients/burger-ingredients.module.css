@@ -1,0 +1,12 @@
+.scroll {
+  composes: scroll from "../app/app.module.css"
+} 
+
+.section {
+   width: 75%;
+   margin-left: auto;
+}
+.nav {
+  display: flex;
+  justify-content: flex-end;
+}

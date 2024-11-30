@@ -1,0 +1,28 @@
+.scroll {
+  composes: scroll from "../app/app.module.css";
+  height: 50vh;
+} 
+
+.section {
+  width: 70%;
+}
+
+.ingredients-list {
+  display: flex;
+  flex-direction: column; 
+}
+
+.ingredient {
+  list-style-type: none;
+}
+
+.order-information {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.bun {
+  display: flex;
+  justify-content: center;
+}
