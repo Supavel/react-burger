@@ -13,7 +13,7 @@ const OrderDetails = () => {
   ingredientsIds.unshift(bun?._id);
   ingredientsIds.push(bun?._id);
 
-  useEffect(() => dispatch(postOrder(ingredientsIds)), [ingredientsIds, dispatch]);
+  useEffect(() => dispatch(postOrder(ingredientsIds)), []);
 
   const { order, orderFailed, orderRequest } = useSelector(
     (state: any) => state.orderDetails

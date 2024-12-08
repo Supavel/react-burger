@@ -18,7 +18,7 @@ const BurgerIngredientsGroup = ({
     <>
       <div
         id={ingredientType}
-        className="text text_type_main-medium mb-6 mt-10"
+        className="text text_type_main-medium mb-6 mt-10 ml-25"
       >
         {name}
       </div>

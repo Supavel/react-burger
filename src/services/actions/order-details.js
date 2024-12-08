@@ -1,4 +1,5 @@
 import request from "../../utils/request";
+import  {CLEAR_INGREDIENTS} from "./burger-constructor";
 
 export const POST_ORDER_REQUEST = "POST_ORDER_REQUEST";
 export const POST_ORDER_SUCCESS = "POST_ORDER_SUCCESS";
@@ -19,6 +20,7 @@ export const postOrder = (ingredients) => {
     })
       .then((res) => {
         dispatch({ type: POST_ORDER_SUCCESS, order: res.order.number });
+        dispatch({ type: CLEAR_INGREDIENTS });
       })
       .catch((e) =>
         dispatch({

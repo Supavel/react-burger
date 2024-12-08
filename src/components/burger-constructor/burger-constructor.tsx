@@ -25,6 +25,9 @@ const BurgerConstructor = () => {
   const total = useMemo( () => ingredients.reduce((acc: number, p: any) => acc + p.price, 0) + (bun?.price || 0)*2, [ingredients, bun]);
   const [orderModalVisible, setOrderModalVisible] = useState(false);
   const handleOrderClick = () => {
+    if (!bun) {
+      return;
+    }
     setOrderModalVisible(true);
   };
 
@@ -61,8 +64,7 @@ const BurgerConstructor = () => {
           <div className={styles.bun}>
             <div className={`constructor-element constructor-element_pos_top mb-4 ${isBunHover===true ? styles.onHover :''}`}>
               <span
-                className="constructor-element__row text text_type_main-small"
-                style={{ justifyContent: "center" }}
+                className={`constructor-element__row text text_type_main-small ${styles["emty-element"]}`}
               >
                 Выберите булки
               </span>
@@ -87,8 +89,7 @@ const BurgerConstructor = () => {
               <div className={styles.bun}>
                 <div className={`constructor-element ${isIngredientHover===true ? styles.onHover :''}`} >
                   <span
-                    className="constructor-element__row text text_type_main-small"
-                    style={{ justifyContent: "center" }}
+                    className={`constructor-element__row text text_type_main-small ${styles["emty-element"]}`}
                   >
                     Выберите начинку
                   </span>
@@ -112,8 +113,7 @@ const BurgerConstructor = () => {
           <div className={styles.bun}>
             <div className={`constructor-element constructor-element_pos_bottom mt-4 ${isBunHover===true ? styles.onHover :''}`}>
               <span
-                className="constructor-element__row text text_type_main-small"
-                style={{ justifyContent: "center" }}
+                className={`constructor-element__row text text_type_main-small  ${styles["emty-element"]}`}
               >
                 Выберите булки
               </span>

@@ -2,7 +2,8 @@ import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   ADD_BUN,
-  SORT_INGREDIENTS
+  SORT_INGREDIENTS,
+  CLEAR_INGREDIENTS
     } from '../actions/burger-constructor';
     
   const initialState = {
@@ -37,6 +38,9 @@ import {
             ...state,
             ingredients: ingredients
           }
+        }
+        case CLEAR_INGREDIENTS: {
+          return {...initialState}
         }
         default: {
           return state;

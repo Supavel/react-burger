@@ -11,6 +11,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from "./burger-constuctor-item.module.css";
 
 function BurgerConstructorItem({ ingredient, index }: any) {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function BurgerConstructorItem({ ingredient, index }: any) {
   drag(drop(ref));
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className={styles.item}>
       <DragIcon type="primary" />
       <ConstructorElement
         isLocked={false}
