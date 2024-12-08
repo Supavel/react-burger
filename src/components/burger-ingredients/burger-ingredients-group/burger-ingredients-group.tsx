@@ -6,7 +6,7 @@ import ingredientPropTypes from "../../../utils/types";
 const BurgerIngredientsGroup = ({
   ingredients,
   ingredientType,
-  setselectedIngredient,
+  ingredientsCounters
 }: any) => {
   const name =
     ingredientType === "bun"
@@ -29,7 +29,7 @@ const BurgerIngredientsGroup = ({
               <li className={styles.ingredient} key={ingredient._id}>
                 <BurgerIngredientItem
                   ingredient={ingredient}
-                  setselectedIngredient={setselectedIngredient}
+                  count={ingredientsCounters[ingredient._id]}
                 />
               </li>
             );
@@ -43,7 +43,7 @@ const BurgerIngredientsGroup = ({
 BurgerIngredientsGroup.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   ingredientType: PropTypes.string.isRequired,
-  setselectedIngredient: PropTypes.func,
+  ingredientsCounters: PropTypes.object
 };
 
 export default BurgerIngredientsGroup;
