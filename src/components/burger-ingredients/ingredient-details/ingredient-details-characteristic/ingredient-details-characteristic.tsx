@@ -13,7 +13,7 @@ const IngredientDetailsCharacteristic = ({ name, value }: any) => {
 
 IngredientDetailsCharacteristic.propTypes = {
     name: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.number
 }
 
 export default IngredientDetailsCharacteristic;

@@ -26,3 +26,11 @@
   display: flex;
   justify-content: center;
 }
+
+.onHover {
+  border: dashed #3C39EC;
+}
+
+.emty-element {
+  justify-content: center;
+}

@@ -1,32 +1,78 @@
-import {useState} from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import BurgerIngredientsGroup from "./burger-ingredients-group/burger-ingredients-group";
-import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import IngredientsDetails from "./ingredient-details/ingredient-details";
-import ingredientPropTypes from "../../utils/types";
+import { useSelector, useDispatch } from "react-redux";
+import { getIngredients } from "../../services/actions/burger-ingredients";
+import { UNSET_SELECTED_INGREDIENT } from "../../services/actions/ingredient-details";
 
-const BurgerIngredients = ({ ingredients}: any) => {
-  const [current, setCurrent] = useState("one");
-  const [selectedIngredient, setselectedIngredient] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
+const BurgerIngredients = () => {
+  const [current, setCurrent] = useState("bun");
+  const { selectedIngredient, modalVisible } = useSelector(
+    (state: any) => state.ingredientDetails
+  );
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    (state: any) => state.burgerIngredients
+  );
+  const tabRef = useRef<HTMLDivElement>(null);
+  const bunRef = useRef<HTMLDivElement>(null);
+  const sauceRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement>(null);
 
-  const handleIngredientClick = (ingredient:any) => {
-    setselectedIngredient(ingredient);
-    setModalVisible(true);
-  };
+  const dispatch: any = useDispatch();
+
+  useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   const handleCloseModal = () => {
-    setModalVisible(false);
+    dispatch({ type: UNSET_SELECTED_INGREDIENT });
   };
+
+  const handleScroll = () => {
+    const tabBottom = tabRef.current?.getBoundingClientRect().bottom || 0;
+    const bunDistance = Math.abs(
+      tabBottom - (bunRef.current?.getBoundingClientRect().top || 0)
+    );
+    const sauceDistance = Math.abs(
+      tabBottom - (sauceRef.current?.getBoundingClientRect().top || 0)
+    );
+    const mainDistance = Math.abs(
+      tabBottom - (mainRef.current?.getBoundingClientRect().top || 0)
+    );
+
+    const closest =
+      bunDistance < sauceDistance && bunDistance < mainDistance
+        ? "bun"
+        : sauceDistance < bunDistance && sauceDistance < mainDistance
+          ? "sauce"
+          : "main";
+
+    if (closest !== current) {
+      setCurrent(closest);
+    }
+  };
+
+  const ingredientsConstructor = useSelector((state: any) =>
+    state.burgerConstructor.ingredients);
+  
+  const ingredientsCounters = useMemo( () => ingredientsConstructor?.reduce(
+    (acc: any, currentItem: any) => (
+      (acc[currentItem._id] = 1 + acc[currentItem._id] || 1), acc
+    ),
+    {}
+  ), [ingredientsConstructor])
+ 
+  const bun = useSelector((state: any) => state.burgerConstructor.bun?._id);
+  let bunCounters = {};
+  if (bun) {
+    bunCounters = { [bun]: 2 };
+  }
 
   return (
     <section className={styles.section}>
       <h1 className="text text_type_main-large mt-10 ml-30">Соберите бургер</h1>
-      <nav
-        className={`${styles.nav} "mt-5"`}
-      >
+      <nav ref={tabRef} className={`${styles.nav} "mt-5"`}>
         <Tab value="bun" active={current === "bun"} onClick={setCurrent}>
           Булки
         </Tab>
@@ -38,34 +84,44 @@ const BurgerIngredients = ({ ingredients}: any) => {
           Начинка
         </Tab>
       </nav>
-      <div className={`${styles.scroll} ml-30`}>
-        <BurgerIngredientsGroup
-          ingredients={ingredients}
-          ingredientType="bun"
-          setselectedIngredient = {handleIngredientClick}
-        />
-        <BurgerIngredientsGroup
-          ingredients={ingredients}
-          ingredientType="main"
-          setselectedIngredient = {handleIngredientClick}
-        />
-        <BurgerIngredientsGroup
-          ingredients={ingredients}
-          ingredientType="sauce"
-          setselectedIngredient = {handleIngredientClick}
-        />
-        {modalVisible && (
-          <Modal onClose={handleCloseModal} header="Детали ингредиента">
-            <IngredientsDetails ingredient={selectedIngredient} />
-          </Modal>
-        )}
-      </div>
+      {ingredientsFailed && (
+        <div className="text text text_type_main-medium">Произошла ошибка</div>
+      )}
+      {ingredientsRequest && (
+        <div className="text text text_type_main-medium">Загрузка</div>
+      )}
+      {!ingredientsFailed && !ingredientsRequest && (
+        <div className={`${styles.scroll} ml-30`} onScroll={handleScroll}>
+          <div ref={bunRef}>
+            <BurgerIngredientsGroup
+              ingredients={ingredients}
+              ingredientsCounters={bunCounters}
+              ingredientType="bun"
+            />
+          </div>
+          <div ref={mainRef}>
+            <BurgerIngredientsGroup
+              ingredients={ingredients}
+              ingredientsCounters={ingredientsCounters}
+              ingredientType="main"
+            />
+          </div>
+          <div ref={sauceRef}>
+            <BurgerIngredientsGroup
+              ingredients={ingredients}
+              ingredientsCounters={ingredientsCounters}
+              ingredientType="sauce"
+            />
+          </div>
+          {modalVisible && (
+            <Modal onClose={handleCloseModal} header="Детали ингредиента">
+              <IngredientsDetails ingredient={selectedIngredient} />
+            </Modal>
+          )}
+        </div>
+      )}
     </section>
   );
-};
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerIngredients;
