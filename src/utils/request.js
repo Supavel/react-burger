@@ -11,7 +11,7 @@ const checkSuccess = (res) => {
   if (res?.success) {
     return res;
   }
-  return Promise.reject(`Ответ не success: ${res}`);
+  return Promise.reject(`Ответ не success: ${JSON.stringify(res)}`);
 };
 
 const request = (path, options) => {
