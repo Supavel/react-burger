@@ -3,12 +3,5 @@
     grid-template-columns: 1fr 1fr; 
     row-gap: 32px;
     column-gap: 16px;
-}
-
-.ingredient {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     list-style-type: none;
-    cursor: pointer; 
 }

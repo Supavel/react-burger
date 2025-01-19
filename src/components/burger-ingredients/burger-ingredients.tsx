@@ -2,17 +2,12 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import BurgerIngredientsGroup from "./burger-ingredients-group/burger-ingredients-group";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import IngredientsDetails from "./ingredient-details/ingredient-details";
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/burger-ingredients";
-import { UNSET_SELECTED_INGREDIENT } from "../../services/actions/ingredient-details";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState("bun");
-  const { selectedIngredient, modalVisible } = useSelector(
-    (state: any) => state.ingredientDetails
-  );
+
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
     (state: any) => state.burgerIngredients
   );
@@ -24,10 +19,6 @@ const BurgerIngredients = () => {
   const dispatch: any = useDispatch();
 
   useEffect(() => dispatch(getIngredients()), [dispatch]);
-
-  const handleCloseModal = () => {
-    dispatch({ type: UNSET_SELECTED_INGREDIENT });
-  };
 
   const handleScroll = () => {
     const tabBottom = tabRef.current?.getBoundingClientRect().bottom || 0;
@@ -53,16 +44,21 @@ const BurgerIngredients = () => {
     }
   };
 
-  const ingredientsConstructor = useSelector((state: any) =>
-    state.burgerConstructor.ingredients);
-  
-  const ingredientsCounters = useMemo( () => ingredientsConstructor?.reduce(
-    (acc: any, currentItem: any) => (
-      (acc[currentItem._id] = 1 + acc[currentItem._id] || 1), acc
-    ),
-    {}
-  ), [ingredientsConstructor])
- 
+  const ingredientsConstructor = useSelector(
+    (state: any) => state.burgerConstructor.ingredients
+  );
+
+  const ingredientsCounters = useMemo(
+    () =>
+      ingredientsConstructor?.reduce(
+        (acc: any, currentItem: any) => (
+          (acc[currentItem._id] = 1 + acc[currentItem._id] || 1), acc
+        ),
+        {}
+      ),
+    [ingredientsConstructor]
+  );
+
   const bun = useSelector((state: any) => state.burgerConstructor.bun?._id);
   let bunCounters = {};
   if (bun) {
@@ -113,11 +109,6 @@ const BurgerIngredients = () => {
               ingredientType="sauce"
             />
           </div>
-          {modalVisible && (
-            <Modal onClose={handleCloseModal} header="Детали ингредиента">
-              <IngredientsDetails ingredient={selectedIngredient} />
-            </Modal>
-          )}
         </div>
       )}
     </section>

@@ -12,18 +12,20 @@ export function ForgotPasswordPage() {
 
   const navigate = useNavigate();
 
-  const forgotPassword = () => {
+  const onSubmit = (e:any) => {
+    e.preventDefault();
     forgotPasswordRequest(email)
       .then(() => {
+        localStorage.setItem("resetPassword", "true");
         navigate("/reset-password");
       })
-      .catch((e) => {
+      .catch(() => {
         alert("Ошибка. Попробуйте еще раз");
       });
   };
 
   return (
-    <form className={`${styles.form} mt-30`}>
+    <form className={`${styles.form} mt-30`} onSubmit={onSubmit}>
       <h1 className="text text_type_main-large mb-6">Восстановление пароля</h1>
       <EmailInput
         value={email}
@@ -31,11 +33,10 @@ export function ForgotPasswordPage() {
         extraClass="mb-6"
       />
       <Button
-        htmlType="button"
+        htmlType="submit"
         type="primary"
         size="large"
         extraClass="mb-20"
-        onClick={forgotPassword}
       >
         Восстановить
       </Button>

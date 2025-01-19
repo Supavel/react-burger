@@ -5,9 +5,8 @@
 }
 
 .profile-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 3fr 4fr 4fr 3fr;
 }
 
 .profile-title {
@@ -17,13 +16,11 @@
     justify-content: flex-start;
 }
 
-.profile-buttons {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: flex-end;
-}
 
 .link {
     text-decoration: none;
+}
+
+.active-link {
+    color: white;
 }
