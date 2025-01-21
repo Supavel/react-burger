@@ -8,13 +8,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserData, updateUserData } from "../../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import styles from "./profile-settings.module.css";
+import useForm from "../../hooks/use-form"
 
 const ProfileSettings = () => {
-  const [state, setState] = useState({
+  const { values, handleChange, setValues } = useForm({
     name: "",
     email: "",
-    password: ""
+    password: "",
   });
+
 
   const dispatch: any = useDispatch();
   const { getUserRequestFailed, updateUserrequestFailed, userData } = useSelector((state: any) => state.auth);
@@ -25,36 +27,28 @@ const ProfileSettings = () => {
 
   useEffect(() => {
     if (userData) {
-      setState({ ...state, name: userData.name, email: userData.email });
+      setValues({ ...values, name: userData.name, email: userData.email });
     }
 
     if (getUserRequestFailed)
-      setState({
-        ...state,
+      setValues({
+        ...values,
         name: "Ошибка получения данных",
         email: "Ошибка получения данных",
       });
   }, [userData, getUserRequestFailed]);
 
-  const handleInputChange = (event: any) => {
-    const target = event.target;
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
-  };
-
-  const onSubmit = (e:any) => {
+   const onSubmit = (e:any) => {
     e.preventDefault();
-    dispatch(updateUserData(state));
+    dispatch(updateUserData(values));
   };
 
   const onReset = (e:any) => {
     e.preventDefault();
-    setState({ name: userData?.name || "", email: userData?.email || "", password: "" });
+    setValues({ name: userData?.name || "", email: userData?.email || "", password: "" });
   };
 
-  const isModified = (userData?.name !== state.name ||  userData?.email !== state.email || state.password !== "") ? true : false;
+  const isModified = (userData?.name !== values.name ||  userData?.email !== values.email || values.password !== "") ? true : false;
 
   return (
     <>
@@ -62,9 +56,9 @@ const ProfileSettings = () => {
       <Input
         type={"text"}
         placeholder={"Имя"}
-        onChange={handleInputChange}
+        onChange={handleChange}
         icon={"EditIcon"}
-        value={state.name}
+        value={values.name}
         name={"name"}
         error={false}
         errorText={"Ошибка"}
@@ -76,9 +70,9 @@ const ProfileSettings = () => {
       <Input
         type={"text"}
         placeholder={"E-mail"}
-        onChange={handleInputChange}
+        onChange={handleChange}
         icon={"EditIcon"}
-        value={state.email}
+        value={values.email}
         name={"email"}
         error={false}
         errorText={"Ошибка"}
@@ -89,8 +83,8 @@ const ProfileSettings = () => {
       />
       <PasswordInput
         placeholder={"Пароль"}
-        onChange={handleInputChange}
-        value={state.password}
+        onChange={handleChange}
+        value={values.password}
         name={"password"}
         size={"default"}
         extraClass="mb-6"

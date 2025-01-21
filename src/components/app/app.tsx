@@ -11,6 +11,7 @@ import {
   ResetPasswordPage,
   ProfilePage,
   LogoutPage,
+  IngredientPage,
   NotFound404Page,
 } from "../../pages";
 import ProtectedRouteElement from "../protected-route/protected-route";
@@ -19,6 +20,7 @@ import ProfileOrders from "../profile-orders/profile-orders";
 import Modal from "../modal/modal";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import { authCheckUser } from "../../services/actions/auth";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 
 const App = () => {
   const navigate = useNavigate();
@@ -26,7 +28,10 @@ const App = () => {
   const background = location.state?.background;
   const dispatch: any = useDispatch();
 
-  useEffect(() => dispatch(authCheckUser()), [dispatch]);
+  useEffect(() => {
+    dispatch(authCheckUser());
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   const handleCloseModalDetail = () => {
     navigate(-1);
@@ -40,7 +45,7 @@ const App = () => {
           <Route
             path="/login"
             element={
-              <ProtectedRouteElement authorizedForbidden>
+              <ProtectedRouteElement anonymous>
                 <LoginPage />
               </ProtectedRouteElement>
             }
@@ -49,7 +54,7 @@ const App = () => {
           <Route
             path="/register"
             element={
-              <ProtectedRouteElement authorizedForbidden>
+              <ProtectedRouteElement anonymous>
                 <RegisterPage />
               </ProtectedRouteElement>
             }
@@ -57,7 +62,7 @@ const App = () => {
           <Route
             path="/forgot-password"
             element={
-              <ProtectedRouteElement authorizedForbidden={true}>
+              <ProtectedRouteElement anonymous={true}>
                 <ForgotPasswordPage />
               </ProtectedRouteElement>
             }
@@ -65,7 +70,7 @@ const App = () => {
           <Route
             path="/reset-password"
             element={
-              <ProtectedRouteElement authorizedForbidden>
+              <ProtectedRouteElement anonymous>
                 <ResetPasswordPage />
               </ProtectedRouteElement>
             }
@@ -82,14 +87,7 @@ const App = () => {
             <Route path="orders" element={<ProfileOrders />} />
           </Route>
           <Route path="/logout" element={<LogoutPage />} />
-          <Route
-            path={"ingredients/:id"}
-            element={
-              <Modal onClose={handleCloseModalDetail}>
-                <IngredientsDetails />
-              </Modal>
-            }
-          />
+          <Route path={"ingredients/:id"} element={<IngredientPage />} />
           <Route path="*" element={<NotFound404Page />} />
         </Routes>
         {background && (
@@ -97,7 +95,10 @@ const App = () => {
             <Route
               path={"ingredients/:id"}
               element={
-                <Modal onClose={handleCloseModalDetail}>
+                <Modal
+                  onClose={handleCloseModalDetail}
+                  header="Детали ингредиента"
+                >
                   <IngredientsDetails />
                 </Modal>
               }

@@ -4,31 +4,24 @@ import PropTypes from "prop-types";
 
 const ProtectedRouteElement = ({
   children,
-  authorizedForbidden = false,
+  anonymous = false,
 }: any) => {
   const { isUserLogged } = useSelector((state: any) => state.auth);
   const location = useLocation();
-  const afterLogging = location.state?.afterlogging;
+  const from = location.state?.from || "/";
+  if (isUserLogged && anonymous) {
+    return <Navigate to={from} />;
+  }
+  if (!isUserLogged && !anonymous) {
+    return <Navigate to="/login" state={{ from: location.pathname }} />;
+  }
 
-  return (
-    <>
-      {isUserLogged && afterLogging && (
-        <Navigate to={afterLogging} state={{ afterlogging: false }} />
-      )}
-      {!isUserLogged && !authorizedForbidden && (
-        <Navigate to="/login" state={{ afterlogging: location.pathname }} />
-      )}
-      {isUserLogged && authorizedForbidden && !afterLogging && (
-        <Navigate to="/" />
-      )}
-      {children}
-    </>
-  );
+  return children;
 };
 
 ProtectedRouteElement.propTypes = {
   children: PropTypes.element.isRequired,
-  authorizedForbidden: PropTypes.bool,
+  anonymous: PropTypes.bool,
 };
 
 export default ProtectedRouteElement;

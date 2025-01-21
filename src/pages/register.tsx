@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   EmailInput,
   Input,
@@ -11,21 +10,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { register } from "../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import Loader from "../components/loader/loader";
+import useForm from "../hooks/use-form";
 
 export function RegisterPage() {
-  const [state, setState] = useState({
+  const { values, handleChange } = useForm({
     name: "",
     email: "",
     password: "",
   });
-
-  const handleInputChange = (event: any) => {
-    const target = event.target;
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
-  };
 
   const dispatch: any = useDispatch();
 
@@ -33,10 +25,10 @@ export function RegisterPage() {
     (state: any) => state.auth
   );
 
-  const onSubmit = (e:any) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(register(state))
-  }
+    dispatch(register(values));
+  };
 
   return (
     <>
@@ -51,8 +43,8 @@ export function RegisterPage() {
           <Input
             type={"text"}
             placeholder={"Имя"}
-            onChange={handleInputChange}
-            value={state.name}
+            onChange={handleChange}
+            value={values.name}
             name={"name"}
             error={false}
             ref={null}
@@ -64,14 +56,14 @@ export function RegisterPage() {
           />
           <EmailInput
             name={"email"}
-            value={state.email}
-            onChange={handleInputChange}
+            value={values.email}
+            onChange={handleChange}
             extraClass="mb-6"
           />
           <PasswordInput
             placeholder={"Пароль"}
-            onChange={handleInputChange}
-            value={state.password}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             size={"default"}
             extraClass="mb-6"

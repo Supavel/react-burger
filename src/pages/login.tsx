@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -10,20 +9,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { login } from "../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import Loader from "../components/loader/loader";
+import useForm from "../hooks/use-form";
 
 export function LoginPage() {
-  const [state, setState] = useState({
+  const {values, handleChange} = useForm({
     email: "",
     password: "",
   });
-
-  const handleInputChange = (event: any) => {
-    const target = event.target;
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
-  };
 
   const dispatch: any = useDispatch();
 
@@ -33,7 +25,7 @@ export function LoginPage() {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    dispatch(login(state));
+    dispatch(login(values));
   };
 
   return (
@@ -45,14 +37,14 @@ export function LoginPage() {
           <h1 className="text text_type_main-large mb-6">Вход</h1>
           <EmailInput
             name={"email"}
-            value={state.email}
-            onChange={handleInputChange}
+            value={values.email}
+            onChange={handleChange}
             extraClass="mb-6"
           />
           <PasswordInput
             placeholder={"Пароль"}
-            onChange={handleInputChange}
-            value={state.password}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             size={"default"}
             extraClass="mb-6"

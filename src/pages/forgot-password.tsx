@@ -6,15 +6,16 @@ import {
 import styles from "./form.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPasswordRequest } from "../utils/api";
+import useForm from "../hooks/use-form";
 
 export function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
+  const {values, handleChange} = useForm({email:""});
 
   const navigate = useNavigate();
 
   const onSubmit = (e:any) => {
     e.preventDefault();
-    forgotPasswordRequest(email)
+    forgotPasswordRequest(values)
       .then(() => {
         localStorage.setItem("resetPassword", "true");
         navigate("/reset-password");
@@ -28,8 +29,9 @@ export function ForgotPasswordPage() {
     <form className={`${styles.form} mt-30`} onSubmit={onSubmit}>
       <h1 className="text text_type_main-large mb-6">Восстановление пароля</h1>
       <EmailInput
-        value={email}
-        onChange={event => setEmail(event.target.value)}
+        value={values.email}
+        name={"email"}
+        onChange={handleChange}
         extraClass="mb-6"
       />
       <Button

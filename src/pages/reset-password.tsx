@@ -7,26 +7,20 @@ import {
 import styles from "./form.module.css";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { resetPasswordRequest } from "../utils/api";
+import useForm from "../hooks/use-form";
 
 export function ResetPasswordPage() {
   const canResetPassword = localStorage.getItem("resetPassword");
   const navigate = useNavigate();
 
-  const [state, setState] = useState({
+  const { values, handleChange } = useForm({
     password: "",
     token: "",
   });
-  const handleInputChange = (event: any) => {
-    const target = event.target;
-    setState({
-      ...state,
-      [target.name]: target.value,
-    });
-  };
 
-  const onSubmit = (e:any) => {
+  const onSubmit = (e: any) => {
     e.preventDefault();
-    resetPasswordRequest(state.password, state.token)
+    resetPasswordRequest(values)
       .then(() => {
         localStorage.removeItem("resetPassword");
         navigate("/");
@@ -47,8 +41,8 @@ export function ResetPasswordPage() {
           </h1>
           <PasswordInput
             placeholder={"Введите новый пароль"}
-            onChange={handleInputChange}
-            value={state.password}
+            onChange={handleChange}
+            value={values.password}
             name={"password"}
             errorText={"Ошибка"}
             size={"default"}
@@ -57,8 +51,8 @@ export function ResetPasswordPage() {
           <Input
             type={"text"}
             placeholder={"Введите код из письма"}
-            onChange={handleInputChange}
-            value={state.token}
+            onChange={handleChange}
+            value={values.token}
             name={"token"}
             error={false}
             ref={null}

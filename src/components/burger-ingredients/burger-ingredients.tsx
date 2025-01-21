@@ -2,8 +2,7 @@ import { useState, useEffect, useRef, useMemo } from "react";
 import BurgerIngredientsGroup from "./burger-ingredients-group/burger-ingredients-group";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
-import { getIngredients } from "../../services/actions/burger-ingredients";
+import { useSelector } from "react-redux";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState("bun");
@@ -15,10 +14,6 @@ const BurgerIngredients = () => {
   const bunRef = useRef<HTMLDivElement>(null);
   const sauceRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
-
-  const dispatch: any = useDispatch();
-
-  useEffect(() => dispatch(getIngredients()), [dispatch]);
 
   const handleScroll = () => {
     const tabBottom = tabRef.current?.getBoundingClientRect().bottom || 0;

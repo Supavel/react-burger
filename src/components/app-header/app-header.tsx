@@ -40,7 +40,8 @@ const AppHeader = () => {
         </li>
 
         <li className={styles.logo}>
-          <Logo />
+        <NavLink to="/"><Logo /></NavLink>
+   
         </li>
 
         <li className={styles["sign-in"]}>

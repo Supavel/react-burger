@@ -1,9 +1,7 @@
-import { useEffect } from "react";
 import styles from "./ingredient-details.module.css";
 import IngredientDetailsCharacteristic from "./ingredient-details-characteristic/ingredient-details-characteristic";
 import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getIngredients } from "../../services/actions/burger-ingredients";
+import { useSelector } from "react-redux";
 import Loader from "../loader/loader";
 
 const IngredientDetails = () => {
@@ -13,12 +11,6 @@ const IngredientDetails = () => {
   );
 
   const ingredient = ingredients.find((el: any) => el._id === id);
-  const dispatch: any = useDispatch();
-  useEffect(() => {
-    if (!ingredient) {
-      dispatch(getIngredients());
-    }
-  }, []);
 
   return (
     <>
@@ -28,7 +20,7 @@ const IngredientDetails = () => {
       )}
       {ingredient && (
         <>
-          <img src={ingredient.image_large} alt="Булка" />
+          <img src={ingredient.image_large} alt={ingredient.name} />
           <span className="text text_type_main-medium mt-4 mb-8">
             {ingredient.name}
           </span>
