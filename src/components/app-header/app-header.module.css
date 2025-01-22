@@ -23,3 +23,12 @@
     display: flex;
     margin-left: auto;
 } 
+
+.link {
+    text-decoration: none;
+    display: flex;
+}
+
+.active-link {
+    color: white;
+}

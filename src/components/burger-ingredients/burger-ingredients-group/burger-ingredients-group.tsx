@@ -26,7 +26,7 @@ const BurgerIngredientsGroup = ({
         {ingredients.map((ingredient: any) => {
           if (ingredient.type === ingredientType) {
             return (
-              <li className={styles.ingredient} key={ingredient._id}>
+              <li key={ingredient._id}>
                 <BurgerIngredientItem
                   ingredient={ingredient}
                   count={ingredientsCounters[ingredient._id]}

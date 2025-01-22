@@ -25,7 +25,7 @@ const OrderDetails = () => {
         <div className="text text text_type_main-medium">Произошла ошибка</div>
       )}
       {orderRequest && (
-        <div className="text text text_type_main-medium">Загрузка</div>
+        <div className="text text text_type_main-medium">Оформляем заказ...</div>
       )}
       {!orderFailed && !orderRequest && (
         <>
