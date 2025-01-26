@@ -2,6 +2,7 @@ import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-component
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { postOrder } from "../../../services/actions/order-details";
+import { TIngredientConstrutor } from "../../../utils/types";
 
 const OrderDetails = () => {
   const dispatch: any = useDispatch();
@@ -9,7 +10,7 @@ const OrderDetails = () => {
   const { ingredients, bun } = useSelector(
     (state: any) => state.burgerConstructor
   );
-  const ingredientsIds = ingredients.map((el: any) => el._id);
+  const ingredientsIds = ingredients.map((el: TIngredientConstrutor) => el._id);
   ingredientsIds.unshift(bun?._id);
   ingredientsIds.push(bun?._id);
 

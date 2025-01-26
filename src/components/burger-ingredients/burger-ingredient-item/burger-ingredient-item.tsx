@@ -3,13 +3,17 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredient-item.module.css";
-import ingredientPropTypes from "../../../utils/types";
-
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
+import { TIngredient } from "../../../utils/types";
+import { FC } from "react";
 
-function BurgerIngredientItem({ ingredient, count }: any) {
+type TProps = {
+  ingredient: TIngredient;
+  count: number;
+};
+
+const BurgerIngredientItem: FC<TProps> = ({ ingredient, count }) => {
   const location = useLocation();
 
   const [, dragRef] = useDrag({
@@ -33,11 +37,6 @@ function BurgerIngredientItem({ ingredient, count }: any) {
       <span>{ingredient.name}</span>
     </Link>
   );
-}
-
-BurgerIngredientItem.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
-  count: PropTypes.number,
 };
 
 export default BurgerIngredientItem;

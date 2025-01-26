@@ -1,8 +1,10 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useRef, useMemo } from "react";
 import BurgerIngredientsGroup from "./burger-ingredients-group/burger-ingredients-group";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useSelector } from "react-redux";
+import { TIngredientConstrutor, TIngredientsCounters } from "../../utils/types";
+
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = useState("bun");
@@ -46,7 +48,7 @@ const BurgerIngredients = () => {
   const ingredientsCounters = useMemo(
     () =>
       ingredientsConstructor?.reduce(
-        (acc: any, currentItem: any) => (
+        (acc: TIngredientsCounters, currentItem: TIngredientConstrutor) => (
           (acc[currentItem._id] = 1 + acc[currentItem._id] || 1), acc
         ),
         {}

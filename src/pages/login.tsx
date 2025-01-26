@@ -10,9 +10,11 @@ import { login } from "../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import Loader from "../components/loader/loader";
 import useForm from "../hooks/use-form";
+import { TLogin } from "../utils/types"; 
+
 
 export function LoginPage() {
-  const {values, handleChange} = useForm({
+  const { values, handleChange } = useForm<TLogin>({
     email: "",
     password: "",
   });
@@ -23,14 +25,17 @@ export function LoginPage() {
     (state: any) => state.auth
   );
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login(values));
   };
 
   return (
     <>
-      <Snackbar open={loginRequestFailed} message="Приозошла ошибка авторизации" />
+      <Snackbar
+        open={loginRequestFailed}
+        message="Приозошла ошибка авторизации"
+      />
       {requestExecute && <Loader />}
       {!requestExecute && (
         <form className={`${styles.form} mt-30`} onSubmit={onSubmit}>

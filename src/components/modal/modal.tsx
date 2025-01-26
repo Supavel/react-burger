@@ -1,25 +1,30 @@
-import {useEffect} from "react";
-import {createPortal} from "react-dom";
-import PropTypes from "prop-types";
+import { useEffect, FC } from "react";
+import { createPortal } from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./modal.module.css";
 import ModalOverlay from "./modal-overlay/modal-overlay";
 
-const modalRoot: any = document.getElementById("react-modals");
+const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
-const Modal = ({ children, header, onClose }: any) => {
+type TProps = {
+  header?: string;
+  onClose: () => void;
+  children: React.ReactNode;
+};
+
+const Modal: FC<TProps> = ({ children, header, onClose }) => {
   useEffect(() => {
     document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-  const handleKeyDown = (event: any) => {
-    if (event.key === "Escape") {
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
       onClose();
     }
   };
-  const onClickStop = (e: any) => {
+  const onClickStop = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
   };
   return createPortal(
@@ -27,7 +32,6 @@ const Modal = ({ children, header, onClose }: any) => {
       <div
         className={styles.modal}
         onClick={onClickStop}
-        onKeyDown={handleKeyDown}
       >
         <div
           className={`${styles["close-icon"]} mt-15 mr-10`}
@@ -45,12 +49,6 @@ const Modal = ({ children, header, onClose }: any) => {
     </ModalOverlay>,
     modalRoot
   );
-};
-
-Modal.propTypes = {
-  children: PropTypes.element.isRequired,
-  header: PropTypes.string,
-  onClose: PropTypes.func,
 };
 
 export default Modal;

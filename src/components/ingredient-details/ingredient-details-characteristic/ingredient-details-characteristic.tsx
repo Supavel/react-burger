@@ -1,6 +1,10 @@
-import PropTypes from "prop-types";
+import { TIngredientCharacteristic } from "../../../utils/types";
+import { FC } from "react";
 
-const IngredientDetailsCharacteristic = ({ name, value }: any) => {
+const IngredientDetailsCharacteristic: FC<TIngredientCharacteristic> = ({
+  name,
+  value,
+}) => {
   return (
     <>
       <span className="text text_type_main-medium text_color_inactive mr-5">
@@ -10,10 +14,5 @@ const IngredientDetailsCharacteristic = ({ name, value }: any) => {
     </>
   );
 };
-
-IngredientDetailsCharacteristic.propTypes = {
-    name: PropTypes.string,
-    value: PropTypes.number
-}
 
 export default IngredientDetailsCharacteristic;

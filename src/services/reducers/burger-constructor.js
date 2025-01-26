@@ -28,7 +28,7 @@ import {
         case ADD_BUN: {
           return {
             ...state,
-            bun: action.ingredient
+            bun: action.ingredient.ingredient
           };
         }
         case SORT_INGREDIENTS: {

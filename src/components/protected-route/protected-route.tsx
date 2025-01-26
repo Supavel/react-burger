@@ -1,11 +1,13 @@
+import { FC } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
-const ProtectedRouteElement = ({
-  children,
-  anonymous = false,
-}: any) => {
+type TProps = {
+  anonymous?: boolean;
+  children: React.ReactNode;
+};
+
+const ProtectedRouteElement: FC<TProps> = ({ children, anonymous = false }) => {
   const { isUserLogged } = useSelector((state: any) => state.auth);
   const location = useLocation();
   const from = location.state?.from || "/";
@@ -16,12 +18,7 @@ const ProtectedRouteElement = ({
     return <Navigate to="/login" state={{ from: location.pathname }} />;
   }
 
-  return children;
-};
-
-ProtectedRouteElement.propTypes = {
-  children: PropTypes.element.isRequired,
-  anonymous: PropTypes.bool,
+  return <>{children}</>;
 };
 
 export default ProtectedRouteElement;

@@ -17,6 +17,7 @@ import { CLOSE_ORDER } from "../../services/actions/order-details";
 import { v4 as uuidv4 } from "uuid";
 import BurgerConstructorItem from "./burger-constuctor-item/burger-constuctor-item";
 import ProtectedRouteElement from "../protected-route/protected-route";
+import { TIngredientConstrutor } from "../../utils/types";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const BurgerConstructor = () => {
   );
   const total = useMemo(
     () =>
-      ingredients.reduce((acc: number, p: any) => acc + p.price, 0) +
+      ingredients.reduce((acc: number, p: TIngredientConstrutor) => acc + p.price, 0) +
       (bun?.price || 0) * 2,
     [ingredients, bun]
   );
@@ -44,8 +45,8 @@ const BurgerConstructor = () => {
 
   const [{ isIngredientHover }, dropTargetIngredient] = useDrop({
     accept: "ingredient",
-    drop(ingredient: any) {
-      ingredient = { ...ingredient.ingredient, uniq_id: uuidv4() };
+    drop(ingredientObj: {"ingredient":TIngredientConstrutor}) {
+      const ingredient = { ...ingredientObj.ingredient, uniq_id: uuidv4() };
       dispatch({ type: ADD_INGREDIENT, ingredient });
     },
     collect: (monitor) => ({
@@ -55,8 +56,8 @@ const BurgerConstructor = () => {
 
   const [{ isBunHover }, dropTargetBun] = useDrop({
     accept: "bun",
-    drop(ingredient: any) {
-      dispatch({ type: ADD_BUN, ...ingredient });
+    drop(ingredient: TIngredientConstrutor) {
+      dispatch({ type: ADD_BUN, ingredient });
     },
     collect: (monitor) => ({
       isBunHover: monitor.isOver(),
@@ -106,7 +107,7 @@ const BurgerConstructor = () => {
                 </div>
               </div>
             )}
-            {ingredients.map((ingredient: any, index: any) => {
+            {ingredients.map((ingredient: TIngredientConstrutor, index: number) => {
               return (
                 <li
                   key={ingredient.uniq_id}

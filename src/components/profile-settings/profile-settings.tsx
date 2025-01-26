@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Input,
   PasswordInput,
@@ -8,10 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUserData, updateUserData } from "../../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import styles from "./profile-settings.module.css";
-import useForm from "../../hooks/use-form"
+import useForm from "../../hooks/use-form";
+import { TProfileSettings } from "../../utils/types";
 
 const ProfileSettings = () => {
-  const { values, handleChange, setValues } = useForm({
+  const { values, handleChange, setValues } = useForm<TProfileSettings>({
     name: "",
     email: "",
     password: "",
@@ -38,12 +39,12 @@ const ProfileSettings = () => {
       });
   }, [userData, getUserRequestFailed]);
 
-   const onSubmit = (e:any) => {
+   const onSubmit = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(updateUserData(values));
   };
 
-  const onReset = (e:any) => {
+  const onReset = (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValues({ name: userData?.name || "", email: userData?.email || "", password: "" });
   };

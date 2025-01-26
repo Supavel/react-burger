@@ -1,13 +1,19 @@
+import { FC } from "react";
 import BurgerIngredientItem from "../burger-ingredient-item/burger-ingredient-item";
-import PropTypes from "prop-types";
 import styles from "./burger-ingredients-group.module.css";
-import ingredientPropTypes from "../../../utils/types";
+import { TIngredient, TIngredientsCounters } from "../../../utils/types";
 
-const BurgerIngredientsGroup = ({
+type TProps = {
+  ingredients: TIngredient[];
+  ingredientType: string;
+  ingredientsCounters: TIngredientsCounters;
+};
+
+const BurgerIngredientsGroup: FC<TProps> = ({
   ingredients,
   ingredientType,
   ingredientsCounters
-}: any) => {
+}) => {
   const name =
     ingredientType === "bun"
       ? "Булка"
@@ -23,7 +29,7 @@ const BurgerIngredientsGroup = ({
         {name}
       </div>
       <ul className={styles["ingredients-grid"]}>
-        {ingredients.map((ingredient: any) => {
+        {ingredients.map((ingredient: TIngredient) => {
           if (ingredient.type === ingredientType) {
             return (
               <li key={ingredient._id}>
@@ -38,12 +44,6 @@ const BurgerIngredientsGroup = ({
       </ul>
     </>
   );
-};
-
-BurgerIngredientsGroup.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  ingredientType: PropTypes.string.isRequired,
-  ingredientsCounters: PropTypes.object
 };
 
 export default BurgerIngredientsGroup;
