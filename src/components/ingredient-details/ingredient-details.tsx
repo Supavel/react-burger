@@ -3,6 +3,7 @@ import IngredientDetailsCharacteristic from "./ingredient-details-characteristic
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loader from "../loader/loader";
+import { TIngredient } from "../../utils/types";
 
 const IngredientDetails = () => {
   const { id } = useParams();
@@ -10,7 +11,7 @@ const IngredientDetails = () => {
     (state: any) => state.burgerIngredients
   );
 
-  const ingredient = ingredients.find((el: any) => el._id === id);
+  const ingredient = ingredients.find((el: TIngredient) => el._id === id);
 
   return (
     <>

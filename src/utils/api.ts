@@ -1,6 +1,7 @@
 import request from "./request";
+import { TForgotPassword, TResetPassword } from "./types";
 
-export const forgotPasswordRequest = (email) =>
+export const forgotPasswordRequest = ({email}:TForgotPassword) =>
   request("password-reset", {
     method: "POST",
     headers: {
@@ -9,7 +10,7 @@ export const forgotPasswordRequest = (email) =>
     body: JSON.stringify({ email }),
   });
 
-export const resetPasswordRequest = (password, token) =>
+export const resetPasswordRequest = ({password, token}:TResetPassword) =>
   request("password-reset/reset", {
     method: "POST",
     headers: {

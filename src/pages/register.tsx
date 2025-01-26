@@ -11,9 +11,10 @@ import { register } from "../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import Loader from "../components/loader/loader";
 import useForm from "../hooks/use-form";
+import { TRegister } from "../utils/types";
 
 export function RegisterPage() {
-  const { values, handleChange } = useForm({
+  const { values, handleChange } = useForm<TRegister>({
     name: "",
     email: "",
     password: "",
@@ -25,7 +26,7 @@ export function RegisterPage() {
     (state: any) => state.auth
   );
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(register(values));
   };

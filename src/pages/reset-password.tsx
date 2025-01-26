@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Input,
   PasswordInput,
@@ -8,17 +7,18 @@ import styles from "./form.module.css";
 import { Link, useNavigate, Navigate } from "react-router-dom";
 import { resetPasswordRequest } from "../utils/api";
 import useForm from "../hooks/use-form";
+import { TResetPassword } from "../utils/types";
 
 export function ResetPasswordPage() {
   const canResetPassword = localStorage.getItem("resetPassword");
   const navigate = useNavigate();
 
-  const { values, handleChange } = useForm({
+  const { values, handleChange } = useForm<TResetPassword>({
     password: "",
     token: "",
   });
 
-  const onSubmit = (e: any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     resetPasswordRequest(values)
       .then(() => {

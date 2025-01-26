@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   EmailInput,
   Button,
@@ -7,13 +6,16 @@ import styles from "./form.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { forgotPasswordRequest } from "../utils/api";
 import useForm from "../hooks/use-form";
+import { TForgotPassword } from "../utils/types";
 
 export function ForgotPasswordPage() {
-  const {values, handleChange} = useForm({email:""});
+  const { values, handleChange } = useForm<TForgotPassword>({
+    email: "",
+  });
 
   const navigate = useNavigate();
 
-  const onSubmit = (e:any) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     forgotPasswordRequest(values)
       .then(() => {
@@ -34,12 +36,7 @@ export function ForgotPasswordPage() {
         onChange={handleChange}
         extraClass="mb-6"
       />
-      <Button
-        htmlType="submit"
-        type="primary"
-        size="large"
-        extraClass="mb-20"
-      >
+      <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
         Восстановить
       </Button>
       <p className="text text_type_main-default text_color_inactive">

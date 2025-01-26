@@ -1,26 +1,30 @@
-import ingredientPropTypes from "../../../utils/types";
+import { TIngredientConstrutor } from "../../../utils/types";
 import {
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
 } from "../../../services/actions/burger-constructor";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { useRef } from "react";
-import PropTypes from "prop-types";
+import { useRef, FC } from "react";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-constuctor-item.module.css";
 
-function BurgerConstructorItem({ ingredient, index }: any) {
+type TProps = {
+  ingredient: TIngredientConstrutor;
+  index: number;
+};
+
+const BurgerConstructorItem: FC<TProps> = ({ ingredient, index }) => {
   const dispatch = useDispatch();
 
   const ref = useRef<HTMLDivElement>(null);
 
   const [, drop] = useDrop({
     accept: "ingredientInt",
-    hover(item: any, monitor) {
+    hover(item: TIngredientConstrutor, monitor) {
       if (!ref.current) {
         return;
       }
@@ -61,7 +65,7 @@ function BurgerConstructorItem({ ingredient, index }: any) {
   const [, drag] = useDrag({
     type: "ingredientInt",
     item: () => {
-      return { ...ingredient.id, index };
+      return { ...ingredient, index };
     },
   });
 
@@ -84,11 +88,6 @@ function BurgerConstructorItem({ ingredient, index }: any) {
       />
     </div>
   );
-}
-
-BurgerConstructorItem.propTypes = {
-  ingredient: ingredientPropTypes.isRequired,
-  index: PropTypes.number.isRequired,
 };
 
 export default BurgerConstructorItem;
