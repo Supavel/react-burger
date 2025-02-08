@@ -2,7 +2,7 @@ import { useState, useRef, useMemo } from "react";
 import BurgerIngredientsGroup from "./burger-ingredients-group/burger-ingredients-group";
 import styles from "./burger-ingredients.module.css";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks";
 import { TIngredientConstrutor, TIngredientsCounters } from "../../utils/types";
 
 
@@ -10,7 +10,7 @@ const BurgerIngredients = () => {
   const [current, setCurrent] = useState("bun");
 
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    (state: any) => state.burgerIngredients
+    (state) => state.burgerIngredients
   );
   const tabRef = useRef<HTMLDivElement>(null);
   const bunRef = useRef<HTMLDivElement>(null);
@@ -42,7 +42,7 @@ const BurgerIngredients = () => {
   };
 
   const ingredientsConstructor = useSelector(
-    (state: any) => state.burgerConstructor.ingredients
+    (state) => state.burgerConstructor.ingredients
   );
 
   const ingredientsCounters = useMemo(
@@ -56,7 +56,7 @@ const BurgerIngredients = () => {
     [ingredientsConstructor]
   );
 
-  const bun = useSelector((state: any) => state.burgerConstructor.bun?._id);
+  const bun = useSelector((state) => state.burgerConstructor.bun?._id);
   let bunCounters = {};
   if (bun) {
     bunCounters = { [bun]: 2 };

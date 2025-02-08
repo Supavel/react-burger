@@ -1,14 +1,14 @@
 import styles from "./ingredient-details.module.css";
 import IngredientDetailsCharacteristic from "./ingredient-details-characteristic/ingredient-details-characteristic";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../hooks";
 import Loader from "../loader/loader";
 import { TIngredient } from "../../utils/types";
 
 const IngredientDetails = () => {
   const { id } = useParams();
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    (state: any) => state.burgerIngredients
+    (state) => state.burgerIngredients
   );
 
   const ingredient = ingredients.find((el: TIngredient) => el._id === id);

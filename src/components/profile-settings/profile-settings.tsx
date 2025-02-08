@@ -4,7 +4,7 @@ import {
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../hooks";
 import { getUserData, updateUserData } from "../../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import styles from "./profile-settings.module.css";
@@ -19,8 +19,8 @@ const ProfileSettings = () => {
   });
 
 
-  const dispatch: any = useDispatch();
-  const { getUserRequestFailed, updateUserrequestFailed, userData } = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
+  const { getUserRequestFailed, updateUserrequestFailed, userData } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getUserData());

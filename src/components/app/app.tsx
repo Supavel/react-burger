@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../hooks";
 import AppHeader from "../app-header/app-header";
 import ErrorBoundary from "../error-boundry/error-boundry";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
@@ -26,7 +26,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const background = location.state?.background;
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(authCheckUser());

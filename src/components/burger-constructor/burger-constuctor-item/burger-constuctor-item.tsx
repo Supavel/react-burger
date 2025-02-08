@@ -3,7 +3,7 @@ import {
   DELETE_INGREDIENT,
   SORT_INGREDIENTS,
 } from "../../../services/actions/burger-constructor";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../../hooks";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef, FC } from "react";
 import {

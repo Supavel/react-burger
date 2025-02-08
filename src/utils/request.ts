@@ -10,14 +10,14 @@ const checkResponse = (res: Response) => {
   return Promise.reject(`Ошибка ${res.status}`);
 };
 
-const checkSuccess = (res:TResponse) => {
+const checkSuccess = (res: TResponse) => {
   if (res?.success) {
     return res;
   }
   return Promise.reject(res);
 };
 
-const request = (path: string, options: RequestInit) => {
+const request = (path: string, options?: RequestInit) => {
   return fetch(`${url}${path}`, options)
     .then(checkResponse)
     .then(checkSuccess)
@@ -27,12 +27,14 @@ const request = (path: string, options: RequestInit) => {
           if (!res?.success) {
             return Promise.reject(res);
           }
-          localStorage.setItem("accessToken", res.accessToken);
-          localStorage.setItem("refreshToken", res.refreshToken);
-          const headers = new Headers(options.headers);
-          headers.set("Authorization", res.accessToken);
-          options.headers = headers;
-          request(path, options);
+          localStorage.setItem("accessToken", res.accessToken || "");
+          localStorage.setItem("refreshToken", res.refreshToken || "");
+          if (options) {
+            const headers = new Headers(options.headers);
+            headers.set("Authorization", res.accessToken || "");
+            options.headers = headers;
+            request(path, options);
+          }
         });
       }
     });

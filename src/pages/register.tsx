@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./form.module.css";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../hooks";
 import { register } from "../services/actions/auth";
 import { Snackbar } from "@material-ui/core";
 import Loader from "../components/loader/loader";
@@ -20,10 +20,10 @@ export function RegisterPage() {
     password: "",
   });
 
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   const { registerRequestFailed, requestExecute } = useSelector(
-    (state: any) => state.auth
+    (state) => state.auth
   );
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {

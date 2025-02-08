@@ -13,10 +13,23 @@ import {
   GET_USER_FAILED,
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_FAILED,
+  UPDATE_USER_FAILED, TAuthActions
 } from "../actions/auth";
 
-const initialState = {
+import { TUser } from "../../utils/types";
+
+type TAuthState = {
+  requestExecute: boolean,
+  registerRequestFailed: boolean,
+  loginRequestFailed: boolean,
+  logoutRequestFailed: boolean,
+  getUserRequestFailed: boolean,
+  updateUserrequestFailed: boolean,
+  isUserLogged: boolean,
+  userData: TUser | null,
+}
+
+const initialState: TAuthState = {
   requestExecute: false,
   registerRequestFailed: false,
   loginRequestFailed: false,
@@ -27,7 +40,7 @@ const initialState = {
   userData: null,
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action: TAuthActions) => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {
