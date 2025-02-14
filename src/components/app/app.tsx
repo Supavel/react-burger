@@ -12,6 +12,8 @@ import {
   ProfilePage,
   LogoutPage,
   IngredientPage,
+  FeedPage,
+  OrderPage,
   NotFound404Page,
 } from "../../pages";
 import ProtectedRouteElement from "../protected-route/protected-route";
@@ -19,6 +21,7 @@ import ProfileSettings from "../profile-settings/profile-settings";
 import ProfileOrders from "../profile-orders/profile-orders";
 import Modal from "../modal/modal";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
+import OrderCard from "../order-card/order-card";
 import { authCheckUser } from "../../services/actions/auth";
 import { getIngredients } from "../../services/actions/burger-ingredients";
 
@@ -85,21 +88,40 @@ const App = () => {
           >
             <Route index element={<ProfileSettings />} />
             <Route path="orders" element={<ProfileOrders />} />
+            <Route path="orders/:id" element={<OrderPage />} />
           </Route>
           <Route path="/logout" element={<LogoutPage />} />
-          <Route path={"ingredients/:id"} element={<IngredientPage />} />
+          <Route path={"/ingredients/:id"} element={<IngredientPage />} />
+          <Route path={"/feed"} element={<FeedPage />} />
+          <Route path={"/feed/:id"} element={<OrderPage />} />
           <Route path="*" element={<NotFound404Page />} />
         </Routes>
         {background && (
           <Routes>
             <Route
-              path={"ingredients/:id"}
+              path={"/ingredients/:id"}
               element={
                 <Modal
                   onClose={handleCloseModalDetail}
                   header="Детали ингредиента"
                 >
                   <IngredientsDetails />
+                </Modal>
+              }
+            />
+            <Route
+              path={"/feed/:id"}
+              element={
+                <Modal onClose={handleCloseModalDetail}>
+                  <OrderCard />
+                </Modal>
+              }
+            />
+            <Route
+              path={"/profile/orders/:id"}
+              element={
+                <Modal onClose={handleCloseModalDetail}>
+                  <OrderCard />
                 </Modal>
               }
             />

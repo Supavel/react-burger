@@ -1,0 +1,4 @@
+.scroll {
+  composes: scroll from "../app/app.module.css";
+  height: 80vh;
+}

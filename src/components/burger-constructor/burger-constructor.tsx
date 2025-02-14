@@ -7,8 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
-import { useDispatch } from "../../hooks";
-import { useSelector } from "../../hooks/use-selector";
+import { useDispatch, useSelector } from "../../hooks";
 import { useDrop } from "react-dnd";
 import {
   ADD_INGREDIENT,
@@ -27,7 +26,7 @@ const BurgerConstructor = () => {
   );
   const total = useMemo(
     () =>
-      ingredients.reduce((acc: number, p: TIngredientConstrutor) => acc + p.price, 0) +
+      ingredients.reduce((acc, p) => acc + p.price, 0) +
       (bun?.price || 0) * 2,
     [ingredients, bun]
   );
