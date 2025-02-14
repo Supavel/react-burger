@@ -120,9 +120,11 @@ const App = () => {
             <Route
               path={"/profile/orders/:id"}
               element={
-                <Modal onClose={handleCloseModalDetail}>
-                  <OrderCard />
-                </Modal>
+                <ProtectedRouteElement>
+                  <Modal onClose={handleCloseModalDetail}>
+                    <OrderCard />
+                  </Modal>
+                </ProtectedRouteElement>
               }
             />
           </Routes>

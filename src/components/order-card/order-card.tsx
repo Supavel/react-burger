@@ -52,7 +52,7 @@ const OrderCard = () => {
       orderIngredient[item].quantity += 1;
     }
   }
-  for (const item of order.ingredients) {
+  for (const item in orderIngredient) {
     if (orderIngredient[item]) {
       orderIngredients.push(orderIngredient[item]);
     }
