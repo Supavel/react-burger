@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../hooks";
 import { logout } from "../services/actions/auth";
 import Loader from "../components/loader/loader";
 
 export function LogoutPage() {
   const navigate = useNavigate();
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   const { logoutRequestFailed, requestExecute, isUserLogged } = useSelector(
-    (state: any) => state.auth
+    (state) => state.auth
   );
 
   useEffect(() => {

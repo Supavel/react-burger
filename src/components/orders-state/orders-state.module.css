@@ -1,0 +1,33 @@
+.orders-state {
+  display: grid;
+  grid-template-areas:
+  "order-done order-pending"
+  "total total"
+  "total-today total-today";
+}
+
+.orders-colunms {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0;
+  padding: 0;
+}
+
+.ul {
+  margin: 0;
+  padding: 0;
+}
+
+.orders-done {
+  color: #00cccc;
+  grid-area: order-done;
+}
+
+.total {
+  grid-area: total;
+}
+
+.total-today {
+  grid-area: total-today;
+}

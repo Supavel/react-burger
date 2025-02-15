@@ -33,15 +33,30 @@ const AppHeader = () => {
         </li>
 
         <li className={styles["order-tape"]}>
-          <ListIcon className="mr-2" type="secondary" />
-          <div className="text text_type_main-default text_color_inactive">
-            Лента заказов
-          </div>
+          <NavLink
+            to="/feed"
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.link} ${styles["active-link"]} text text_type_main-default`
+                : `${styles.link} text text_type_main-default text_color_inactive`
+            }
+          >
+            {({ isActive }) => (
+              <>
+                <ListIcon
+                  className="mr-2"
+                  type={isActive ? "primary" : "secondary"}
+                />
+                Лента заказов
+              </>
+            )}
+          </NavLink>
         </li>
 
         <li className={styles.logo}>
-        <NavLink to="/"><Logo /></NavLink>
-   
+          <NavLink to="/">
+            <Logo />
+          </NavLink>
         </li>
 
         <li className={styles["sign-in"]}>

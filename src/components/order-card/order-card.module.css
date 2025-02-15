@@ -1,0 +1,54 @@
+.order-number {
+    text-align: center;
+}
+
+.status-done {
+    color: #00CCCC;
+}
+
+.order-ingredients {
+    display: flex;
+    flex-direction: column;
+    composes: scroll from "../app/app.module.css";
+    height: 30vh;
+    
+}
+
+.ingredient {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.ingredient-left {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+    background: linear-gradient(#131316, #131316) padding-box, linear-gradient(to right, #801ab2, #4c4cff) border-box;
+    border-radius: 100px;
+    border: 2px solid transparent;
+    height: 64px;
+    width: 64px;
+}
+
+.price {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

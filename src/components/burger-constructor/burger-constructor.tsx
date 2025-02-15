@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "./order-details/order-details";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "../../hooks";
 import { useDrop } from "react-dnd";
 import {
   ADD_INGREDIENT,
@@ -22,11 +22,11 @@ import { TIngredientConstrutor } from "../../utils/types";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const { ingredients, bun } = useSelector(
-    (state: any) => state.burgerConstructor
+    (state) => state.burgerConstructor
   );
   const total = useMemo(
     () =>
-      ingredients.reduce((acc: number, p: TIngredientConstrutor) => acc + p.price, 0) +
+      ingredients.reduce((acc, p) => acc + p.price, 0) +
       (bun?.price || 0) * 2,
     [ingredients, bun]
   );
@@ -56,7 +56,8 @@ const BurgerConstructor = () => {
 
   const [{ isBunHover }, dropTargetBun] = useDrop({
     accept: "bun",
-    drop(ingredient: TIngredientConstrutor) {
+    drop(ingredientObj: {"ingredient":TIngredientConstrutor}) {
+      const ingredient = {...ingredientObj.ingredient}
       dispatch({ type: ADD_BUN, ingredient });
     },
     collect: (monitor) => ({

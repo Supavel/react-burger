@@ -1,3 +1,7 @@
+import { store } from "../services/reducers";
+import { TWSOrdersAllActions } from "../services/actions/orders-all";
+import { TWSOrdersPersonalActions } from "../services/actions/orders-personal";
+
 export type TIngredient = {
   _id: string;
   name: string;
@@ -18,6 +22,10 @@ export type TIngredientConstrutor = TIngredient & {
   index: number;
 };
 
+export type TIngredientOrder = TIngredient & {
+  quantity: number;
+};
+
 export type TIngredientCharacteristic = {
   name: string;
   value: number;
@@ -29,7 +37,7 @@ export type TIngredientsCounters = {
 
 type TFormName = {
   name: string;
-}
+};
 
 type TFormEmail = {
   email: string;
@@ -41,7 +49,31 @@ type TFormPassword = {
 
 type TFormToken = {
   token: string;
-}
+};
+
+export type TOrder = {
+  ingredients: Array<string>;
+  _id: string;
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+type TGetOrder = Array<{
+  _id: string;
+  ingredients: string[];
+  owner: string;
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+  __v: number;
+}>;
+
+export type TUser = TFormName & TFormEmail;
 
 export type TForgotPassword = TFormEmail;
 
@@ -55,7 +87,22 @@ export type TProfileSettings = TFormName & TFormEmail & TFormPassword;
 
 export type TResponse = {
   success: boolean;
-  accessToken: string;
-  refreshToken: string;
-  data: {[key: string]: any};
-}
+  accessToken?: string;
+  refreshToken?: string;
+  user?: TUser;
+  order?: TOrder;
+  data: { [key: string]: any };
+  orders?: TGetOrder;
+};
+
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;
+
+export type TOrdersList = {
+  orders: TOrder[];
+  total: number;
+  totalToday: number;
+};
+
+export type TWSActionsTypes = TWSOrdersAllActions | TWSOrdersPersonalActions;

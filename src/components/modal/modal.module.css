@@ -8,8 +8,8 @@
     justify-content: center;
     position: absolute;
     width: 80vh;
-    height: 60vh;
-    top: calc(50% - 30vh);
+    height: 75vh;
+    top: calc(50% - 40vh);
     left: calc(50% - 40vh);
     border-radius: 5%;
     cursor: default;
