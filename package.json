@@ -37,7 +37,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "deploy-script": "npm run build && scp -r C:\\Users\\pasuvor3\\react-burger\\build\\* pasha@158.160.70.94:/home/pasha/frontend" 
+    "deploy-script": "npm run build && scp -r ./build/* pasha@158.160.70.94:/home/pasha/frontend" 
   },
   "eslintConfig": {
     "extends": [
