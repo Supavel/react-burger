@@ -8,7 +8,7 @@ type TProps = {
 
 const ModalOverlay: FC<TProps> = ({ children, onClose }) => {
   return (
-    <div className={styles["modal-overlay"]} onClick={onClose}>
+    <div data-cy="modal-overlay" className={styles["modal-overlay"]} onClick={onClose}>
       {children}
     </div>
   );

@@ -28,7 +28,9 @@ const BurgerIngredientItem: FC<TProps> = ({ ingredient, count }) => {
       className={styles.ingredient}
     >
       {count && (
-        <Counter count={count} size="small" extraClass={styles.counter} />
+        <div data-cy="counter" className={styles.counter}>
+          <Counter count={count} size="small" />
+        </div>
       )}
       <img ref={dragRef} src={ingredient.image} alt="Булка" />
       <span>

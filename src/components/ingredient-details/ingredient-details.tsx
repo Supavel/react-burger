@@ -22,7 +22,10 @@ const IngredientDetails = () => {
       {ingredient && (
         <>
           <img src={ingredient.image_large} alt={ingredient.name} />
-          <span className="text text_type_main-medium mt-4 mb-8">
+          <span
+            data-cy="ingredient-card-name"
+            className="text text_type_main-medium mt-4 mb-8"
+          >
             {ingredient.name}
           </span>
           <div className={styles.characteristics}>

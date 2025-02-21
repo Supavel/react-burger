@@ -32,7 +32,7 @@ const BurgerIngredientsGroup: FC<TProps> = ({
         {ingredients.map((ingredient: TIngredient) => {
           if (ingredient.type === ingredientType) {
             return (
-              <li key={ingredient._id}>
+              <li data-cy="ingredient" key={ingredient._id}>
                 <BurgerIngredientItem
                   ingredient={ingredient}
                   count={ingredientsCounters[ingredient._id]}

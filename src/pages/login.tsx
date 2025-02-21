@@ -55,6 +55,7 @@ export function LoginPage() {
             extraClass="mb-6"
           />
           <Button
+            data-cy="login-submit-button"
             htmlType="submit"
             type="primary"
             size="large"
