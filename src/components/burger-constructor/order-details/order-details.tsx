@@ -30,7 +30,7 @@ const OrderDetails = () => {
       )}
       {!orderFailed && !orderRequest && (
         <>
-          <p className="text text_type_digits-large mb-8">{order}</p>
+          <p data-cy="order-datails-number" className="text text_type_digits-large mb-8">{order}</p>
           <p className="text text text_type_main-medium mb-15">
             Идентификатор заказа
           </p>

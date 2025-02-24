@@ -29,7 +29,7 @@ type TAuthState = {
   userData: TUser | null,
 }
 
-const initialState: TAuthState = {
+export const initialState: TAuthState = {
   requestExecute: false,
   registerRequestFailed: false,
   loginRequestFailed: false,

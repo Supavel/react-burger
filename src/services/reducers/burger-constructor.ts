@@ -13,7 +13,7 @@ type TConsrtuctorState = {
   bun: TIngredientConstrutor | null;
 };
 
-const initialState: TConsrtuctorState = {
+export const initialState: TConsrtuctorState = {
   ingredients: [],
   bun: null,
 };

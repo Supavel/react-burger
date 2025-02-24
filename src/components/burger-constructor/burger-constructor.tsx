@@ -67,7 +67,7 @@ const BurgerConstructor = () => {
 
   return (
     <section className={`${styles.section} mt-25`}>
-      <div ref={dropTargetBun}>
+      <div data-cy="constructor" ref={dropTargetBun}>
         {!bun && (
           <div className={styles.bun}>
             <div
@@ -82,7 +82,7 @@ const BurgerConstructor = () => {
           </div>
         )}
         {bun && (
-          <div className={`${styles.bun} mb-4`}>
+          <div data-cy="constructor-bun-top" className={`${styles.bun} mb-4`}>
             <ConstructorElement
               isLocked={true}
               text={`${bun.name} (верх)`}
@@ -111,6 +111,7 @@ const BurgerConstructor = () => {
             {ingredients.map((ingredient: TIngredientConstrutor, index: number) => {
               return (
                 <li
+                  data-cy="constructor-ingredient"
                   key={ingredient.uniq_id}
                   className={`${styles.ingredient} mb-4`}
                 >
@@ -138,7 +139,7 @@ const BurgerConstructor = () => {
           </div>
         )}
         {bun && (
-          <div className={`${styles.bun} mt-4`}>
+          <div data-cy="constructor-bun-bottom" className={`${styles.bun} mt-4`}>
             <ConstructorElement
               isLocked={true}
               text={`${bun.name} (низ)`}
@@ -153,6 +154,7 @@ const BurgerConstructor = () => {
         <p className="text text_type_digits-medium">{total}</p>
         <CurrencyIcon type="primary" className="mr-10 ml-2" />
         <Button
+          data-cy="order-button"
           htmlType="button"
           type="primary"
           size="medium"
